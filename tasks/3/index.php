@@ -1,10 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
-123123123123
-</body>
-</html>
+<?php
+
+error_reporting(-1);
+
+// Имитация броска кубика
+echo "Бросаем кубик \n";
+$throw=mt_rand(1, 6);
+
+echo "Выпало $throw \n";
