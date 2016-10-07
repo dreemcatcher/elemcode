@@ -11,10 +11,7 @@ $percent = 10;
 $age=16;
 
 for ($i=0;$starterMoney<1000000; $i++){
-
     $starterMoney=$starterMoney+($starterMoney*(10/100));
-
-    //$million=$money;
     echo round($starterMoney)."<br>";
 }
 
