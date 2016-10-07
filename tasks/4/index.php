@@ -1,5 +1,6 @@
 <?php
 error_reporting(-1);
+
 // Имитация броска кубика
 echo "Человек кидает 2 кубика. \n";
 $manThrowOne    = mt_rand(1, 6);
