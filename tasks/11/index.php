@@ -45,11 +45,7 @@ $cipher = strtr($text, $code);
 
 echo "Оригинал: {$text}\nШифровка: {$cipher}\n";
 
-
 $flipped = array_flip($code);
-
-//print_r($flipped);
-
 
 $decode = strtr($text, $flipped);
 
