@@ -23,11 +23,9 @@ Function kredit($credit,$percent,$comission,$openDeposit)
     //echo $i . "месяцев<br>";
     return $potracheno;
 }
-
 $homoCreditTotal =  kredit(39999, 4, 500, 0);
 $softBankTotal =  kredit(39999, 3, 1000, 0);
 $strawberryBankTotal =  kredit(39999, 2, 0, 7777);
-
 echo "homoCredit: {$homoCreditTotal} руб. \n";
 echo "softBank: {$softBankTotal} руб. \n";
 echo "strawberryBank: {$strawberryBankTotal} руб. \n";
