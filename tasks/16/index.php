@@ -8,5 +8,21 @@
 Эту программу надо решить с помощью preg_match() и регулярного выражения.
 Протестировать его ты можешь например на сайте Regex101.
 */
+function numberCheck($number){
 
+  //  echo "Строка: $line\n";
 
+    // сюда будет помещено первое
+    // совпадение с шаблоном
+    $regexp = '/[a-z][0-9][0-9][0-9][a-z][a-z]/ui';
+    $match = [];
+    if (preg_match($regexp, $number, $match)) {
+        echo "+ Номер верный '{$match[0]}'\n";
+    } else {
+        echo "- Номер неверный\n";
+    }
+}
+
+echo " ".numberCheck(A101BM);
+echo " ".numberCheck(T112DA);
+echo " ".numberCheck(A111BC);
