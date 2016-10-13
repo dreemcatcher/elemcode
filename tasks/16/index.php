@@ -8,21 +8,28 @@
 Эту программу надо решить с помощью preg_match() и регулярного выражения.
 Протестировать его ты можешь например на сайте Regex101.
 */
+
+error_reporting(-1);
+mb_internal_encoding('utf-8');
 function numberCheck($number){
 
-  //  echo "Строка: $line\n";
+   // $number=mb_strtolower($number);
 
-    // сюда будет помещено первое
-    // совпадение с шаблоном
-    $regexp = '/[a-z][0-9][0-9][0-9][a-z][a-z]/ui';
+   // $regexp = '/(([a-z])?|(а-я)?)[0-9]{3}(([a-z]{2})?|((а-я){2}))?/ui';
+
+    $regexp='/((А|В|Е|К|М|Н|О|Р|С|Т|У|Х)){1}[0-9]{3}((А|В|Е|К|М|Н|О|Р|С|Т|У|Х)){2}/ui';
     $match = [];
     if (preg_match($regexp, $number, $match)) {
         echo "+ Номер верный '{$match[0]}'\n";
     } else {
-        echo "- Номер неверный\n";
+        echo "- Номер {$number} неверный \n";
     }
 }
+$autonombers=['а876ке','в876ке','к876ке','о876ке','х876ке','м876ке','р876ке','а876ке','ф876ке','ы876ке',
+    'в876ке','е876нн','а456не','м567ее','в522ии','ы678нн','с879шш','ч567тт','в567лл','z111ad'
+];
 
-echo " ".numberCheck(A101BM);
-echo " ".numberCheck(T112DA);
-echo " ".numberCheck(A111BC);
+$arCount=count($autonombers);
+for ($i=0;$i<$arCount;$i++){
+    echo " ".numberCheck($autonombers[$i])."<br>";
+}
