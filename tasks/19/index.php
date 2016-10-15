@@ -1,12 +1,11 @@
 <?php
-function engToRus($phrases)
-{
+function engToRus($phrases){
     if (preg_match('/[a-z]/ui', $phrases)) {
         $pattern = array('/d/','/u/','/r/','/a/','/k/','/p/','/y/');
         $replacement = array('Д','У','Р','А','К','Р','У');
         return preg_replace($pattern, $replacement, $phrases);
     } else {
-       // return NULL;  // А так можно?
+       return NULL;  // А так можно?
     }
 }
 
@@ -41,16 +40,10 @@ function autoChange($phrases){
 }
 
 $checkArray = [
-    'Вася дурак',
-    'ВоВа ДуРаК',
-    'Ирина дypak',
-    'Джонни д у р а к!!!',
-    'ты дурак'
+    'Вася дурак','ВоВа ДуРаК','Ирина дypak','Джонни д у р а к!!!','ты дурак'
 ];
 
 echo "-------------------------------------------<br>";
-
-
 $arCount=count($checkArray);
 for ($i=0;$i<$arCount;$i++){
     echo " ".autoChange($checkArray[$i])."<br>";
