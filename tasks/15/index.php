@@ -13,7 +13,7 @@ Function kredit($credit,$percent,$comission,$openDeposit)
         } elseif ($dolg < 5000) {
             echo $i . " месяц. Долг равен " . $dolg . ". Выплачиваем {$dolg}. Поздравляем с последней выплатой.<br>";
             $potracheno = $potracheno + $dolg;
-            $dolg= ($dolg) - $dolg;
+            $dolg= $dolg - $dolg;
             echo " Выплата по долгу равна " . $potracheno . ". Выплачиваем 5000<br>";
             break;
         } elseif ($dolg < 0) {
