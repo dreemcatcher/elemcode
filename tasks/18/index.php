@@ -1,29 +1,48 @@
 <?php
 /*
 На вход скрипта дан введенный пользователем номер телефона в виде 8-911-404-44-11 или +7(812)6786767 (в начале 8
- или +7, потом идут 10 цифр и, возможно, какие-то символы). То есть, как и в прошлой задаче, человек вводит номер
-как хочет. Надо проверить номер на правильность и привести любой номер к единому формату 89114044411 (то есть,
-заменить +7 на 8 и выкинуть весь мусор вроде пробелов, скобок и минусов, кроме цифр)
+ или +7, потом идут 10 цифр и, возможно, какие-то символы).
+
+То есть, как и в прошлой задаче, человек вводит номер как хочет.
+Надо проверить номер на правильность
+и привести любой номер к единому формату 89114044411
+(то есть,
+заменить +7 на 8 и
+выкинуть весь мусор вроде пробелов,
+скобок и
+минусов,
+кроме цифр)
     */
 function phoneNumberCheck($mobileNumber){
-
-
-    // Избавляемся от пробелов.
-
-
-//   $str = 'foo   o';
-    $mobileNumber = preg_replace('/\s\s+/', '', $mobileNumber);
-// Это теперь будет 'foo o'
-    echo $mobileNumber;
-
-          //    (^ ?8|^\+ ?7)([-() ]*\d){10}$
-
+    echo "Было так - ".$mobileNumber."\n";
     $regexp='/(^ ?8|^\+ ?7)([-() ]*\d){10}$/';
     $match = [];
     if (preg_match($regexp, $mobileNumber, $match)) {
-        echo "+ Номер верный '{$match[0]}'\n";
+        echo "+ Номер верный '{$match[0]}' \n";
+        $mobileNumber = str_replace(" ","",$mobileNumber);
+        $mobileNumber = str_replace("-","",$mobileNumber);
+        $mobileNumber = str_replace("(","",$mobileNumber);
+        $mobileNumber = str_replace(")","",$mobileNumber);
+        $mobileNumber = str_replace("+7","8",$mobileNumber);
+        echo "Стало так ". $mobileNumber;
     } else {
         echo "- Ничего не найдено\n";
+    }
+}
+
+function phoneNumberCheckRegexp($mobileNumber){
+    echo "Было так - ".$mobileNumber."\n";
+    $regexp='/(^ ?8|^\+ ?7)([-() ]*\d){10}$/';
+    $match = [];
+    if (preg_match($regexp, $mobileNumber, $match)) {
+        $pattern = '/[-() ]/';
+        $replacement = '';
+        echo "Стало так ".preg_replace($pattern, $replacement, $mobileNumber)."\n";
+        $pattern = '/(\+ ?7)/';
+        $replacement = '8';
+        echo "а потом Стало так ".preg_replace($pattern, $replacement, $mobileNumber)."\n";
+    } else {
+        echo "- Номер введён неверно\n";
     }
 }
 
@@ -51,16 +70,27 @@ $incorrectNumbers = [ '02', '84951234567 позвать люсю', '849512345', 
     '+8 234 5678901', /* либо 8 либо +7 */
     '7 234 5678901' /* нет + */];
 
-echo "-------------------------------------------<br>";
+echo "-------------------------------------------\n";
 
 
 $arCount=count($correctNumbers);
 for ($i=0;$i<$arCount;$i++){
-    echo " ".phoneNumberCheck($correctNumbers[$i])."<br>";
+    echo " ".phoneNumberCheck($correctNumbers[$i])."\n";
 }
 
 $inarcount=count($incorrectNumbers);
-echo "-------------------------------------------<br>";
+echo "-------------------------------------------\n";
 for ($i=0;$i<$inarcount;$i++){
-    echo " ".phoneNumberCheck($incorrectNumbers[$i])."<br>";
+    echo " ".phoneNumberCheck($incorrectNumbers[$i])."\n";
+}
+
+$arCount=count($correctNumbers);
+for ($i=0;$i<$arCount;$i++){
+    echo " ".phoneNumberCheckRegexp($correctNumbers[$i])."\n";
+}
+
+$inarcount=count($incorrectNumbers);
+echo "-------------------------------------------\n";
+for ($i=0;$i<$inarcount;$i++){
+    echo " ".phoneNumberCheckRegexp($incorrectNumbers[$i])."\n";
 }
