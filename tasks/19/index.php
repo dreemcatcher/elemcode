@@ -43,10 +43,13 @@ function autoChange($phrases){
 $checkArray = [
     'Вася дурак',
     'ВоВа ДуРаК',
-    'Ирина дypak', 'Джонни д у р а к!!!','ты дурак'
+    'Ирина дypak',
+    'Джонни д у р а к!!!',
+    'ты дурак'
 ];
 
 echo "-------------------------------------------<br>";
+
 
 $arCount=count($checkArray);
 for ($i=0;$i<$arCount;$i++){
