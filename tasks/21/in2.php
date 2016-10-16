@@ -1,108 +1,56 @@
 <?php
-/**
-«Grammar Nazi». Напиши скрипт, проверяющий текст на наличие злостных ошибок:
-нет пробела после запятой, точки с запятой, восклицательного знака, вопросительного знака, двоеточия
-«жи» или «ши» написано с буквой ы
-в тексте есть слово «координально» или «сдесь», «зделал», «зделаю», «зделан»
-в тексте есть слова «а» или «но» без запятой перед ними.
-(можешь добавить еще несколько правил, если хорошо знаешь русский язык)
-В случае обнаружения ошибки скрипт должен писать сообщение об этом и выводить кусок текста с ошибкой (чтобы было понятно, что не так).
- */
 
-// Фкнкция для проверки
 function grammarCheck($text){
     //echo $text."<br>";
     // Проверим в лоб на отсутствие запятых перед а и но
     $regexpA='/(\s\sа\s)|(([а-я0-9]\sа\s))/u';
     // Маркируем нашу ошибку
     $text=preg_replace($regexpA,'[, a]',$text);
-    // Не маркируем нашу ошибку
-    //$result=preg_replace($regexpA,', a',$text);
-    //echo $result;
 
     $regexpNO='/(\s\sно\s)|(([а-я0-9]\sно\s))/u';
     // Маркируем нашу ошибку
     $text=preg_replace($regexpNO,'[, но]',$text);
-    // Не маркируем нашу ошибку
-    //$result=preg_replace($regexpNO,', но',$text);
-    //echo $result;
 
+    $regexpNO='/(жы)/ui';
+    $text=preg_replace($regexpNO,'[жи]',$text);
 
-    $fixedWords=array();
-    // массив по пробелу и проверим каждый элемент массива?
-    //
-    $words = explode(" ", $text);
+    $regexpNO='/(ши)/ui';
+    $text=preg_replace($regexpNO,'[ши]',$text);
 
-    foreach (($words) as $someword) {
-        //echo "<br />".$someword."<br />";
+    $regexpNO='/(сдесь)/ui';
+    $text=preg_replace($regexpNO,'[здесь]',$text);
 
-        // и проверяем
-        // Для начала определяем есть ли опечатка
-        // Нет пробела после запятой
-        //|([?]?[^\s])
-        $regexpSpace='/(,[^\s])|(;[^\s])|(![^\s])|([?][^\s])|([.]{2}[^\s])|([:][^\s])/';
-        $regexpbiFinder='/(жы)|(шы)/ui';
-        $regexpSpecWords='/(координально)|(сдесь)|(зделал)|(зделаю)|(зделан)/u';
-        if (preg_match($regexpSpace, $someword, $match)) {
-            //echo "А тут у нас пробела нет после запятой! Исправляю \n";
-            // Исправим и промаркируем квадратными скобками
-            $someword = str_replace(","," [, ]",$someword);
-            $someword = str_replace(";"," [; ]",$someword);
-            $someword = str_replace("!"," [! ]",$someword);
-            $someword = str_replace("?"," [? ]",$someword);
-            $someword = str_replace(".."," [.. ]",$someword);
-            $someword = str_replace(":"," [: ]",$someword);
-            // Исправим и проимолчим
-            //$someword = str_replace(",",", ",$someword);
-            //$someword = str_replace(",",", ",$someword);
-            //$someword = str_replace(";","; ",$someword);
-            //$someword = str_replace("!","! ",$someword);
-            //$someword = str_replace("?","? ",$someword);
-            //$someword = str_replace("..",".. ",$someword);
-            //$someword = str_replace(":",": ",$someword);
-            //echo "[".$someword."] <br>";
-            array_push($fixedWords, $someword);
-        }
-        elseif(preg_match($regexpbiFinder, $someword, $match)){
-            //echo "А тут у нас 'ЖЫ' 'ШЫ'! Исправляю \n";
-            // Исправим и промаркируем квадратными скобками
-            $someword = str_replace("жы"," [жи]",$someword);
-            $someword = str_replace("шы"," [ши]",$someword);
-            // Исправим и проимолчим
-            //$someword = str_replace("жы","жи",$someword);
-            //$someword = str_replace("шы","ши",$someword);
-            //echo "[".$someword."] <br>";
-            array_push($fixedWords, $someword);
-        }
-        elseif(preg_match($regexpSpecWords, $someword, $match)){
-            //echo "А тут у нас 'координально,сдесь,зделал,зделаю,зделан'! Исправляю \n";
-            // Исправим и промаркируем квадратными скобками
-            $someword = str_replace("координально"," [кардинально]",$someword);
-            $someword = str_replace("сдесь"," [здесь]",$someword);
-            $someword = str_replace("зделал"," [сделал]",$someword);
-            $someword = str_replace("зделаю"," [селаю]",$someword);
-            $someword = str_replace("зделан"," [сделан]",$someword);
-            // Исправим и проимолчим
-//            $someword = str_replace("координально","кардинально",$someword);
-//            $someword = str_replace("сдесь","здесь",$someword);
-//            $someword = str_replace("зделал","сделал",$someword);
-//            $someword = str_replace("зделаю","селаю",$someword);
-//            $someword = str_replace("зделан","сделан",$someword);
-              //echo "[".$someword."] <br>";
-            array_push($fixedWords, $someword);
-        }
-        else{
-            //echo "А вроде всё правильно.\n";
-            array_push($fixedWords, $someword);
-        }
-        /////////////////////
-        /////////////////////
-        /////////////////////
-        /////////////////////
-    }
-    //Склеиваем массив назад
-    $fixedtext= implode(" ", $fixedWords);
-    return $fixedtext;
+    $regexpNO='/(координально)/ui';
+    $text=preg_replace($regexpNO,'[кардинально]',$text);
+
+    $regexpNO='/(зделал)/ui';
+    $text=preg_replace($regexpNO,'[сделал]',$text);
+
+    $regexpNO='/(зделаю)/ui';
+    $text=preg_replace($regexpNO,'[сделаю]',$text);
+
+    $regexpNO='/(зделан)/ui';
+    $text=preg_replace($regexpNO,'[сделан]',$text);
+
+    $regexpNO='/(,[^\s])/ui';
+    $text=preg_replace($regexpNO,'[, ]',$text);
+
+    $regexpNO='/(;[^\s])/ui';
+    $text=preg_replace($regexpNO,'[; ]',$text);
+
+    $regexpNO='/(![^\s])/ui';
+    $text=preg_replace($regexpNO,'[! ]',$text);
+
+    $regexpNO='/([?][^\s])/ui';
+    $text=preg_replace($regexpNO,'[? ]',$text);
+
+    $regexpNO='/([.]{2}[^\s])/ui';
+    $text=preg_replace($regexpNO,'[. ]',$text);
+
+    $regexpNO='/[:][^\s]/ui';
+    $text=preg_replace($regexpNO,'[: ]',$text);
+
+    return $text;
 }
 
 // Текст для проверки. Извините, мне действительно не приходит в голову ничего кроме text
