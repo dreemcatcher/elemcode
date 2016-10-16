@@ -33,3 +33,7 @@ $arCount=count($autonombers);
 for ($i=0;$i<$arCount;$i++){
     echo " ".numberCheck($autonombers[$i])."<br>";
 }
+
+foreach ($autonombers as &$value) {
+    echo " ".numberCheck($value)."<br>";
+}
