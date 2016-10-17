@@ -1,13 +1,11 @@
 <?php
 error_reporting(-1);
 mb_internal_encoding('utf-8');
-
 /* Делает первую букву в строке заглавной */
 function makeFirstLetterUppercase($text) {
     //Берём первый символ, делаем его большим.
     return mb_strtoupper(mb_substr($text, 0, 1, 'UTF-8'), 'UTF-8') . mb_substr(mb_convert_case($text, MB_CASE_LOWER, 'UTF-8'), 1, mb_strlen($text), 'UTF-8');
 }
-
 ///* исправляет текст */
 function fixText($text) {
     $offersFix=array();
