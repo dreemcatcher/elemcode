@@ -6,25 +6,30 @@ mb_internal_encoding('utf-8');
 
 
 /* Возвращает соответствующую числу форму слова: 1 рубль, 2 рубля, 5 рублей */
-function inclineWord($number, $word1, $word2, $word5) {
+function inclineWord($number, $word1, $word2, $word5)
+{
     /* DIY */
-
-
-   // echo "Передано в функцию руб ".$number;
-    if($number==1){
+    // echo "Передано в функцию руб ".$number;
+    if ($number == 1) {
         return "рубль";
-    }elseif($number==2||$number==3||$number==4){
+    } elseif ($number == 2 || $number == 3 || $number == 4) {
         return "рубля";
-    }elseif($number==0){
-        return "рублей";
-    }else{
+    } elseif ($number == 0) {
         return "рублей";
     }
-    $rubl=array (
-        0   =>  'рубль',
-        1   =>  'рубля',
-        2   =>  'рублей'
-    );
+    //elseif($number>=1000 and $number<=1000000 ){
+    //    if($number==1000)
+    //    return "рублей";
+//}
+
+    else {
+        return "рублей";
+    }
+//    $rubl=array (
+//        0   =>  'рубль',
+//        1   =>  'рубля',
+//        2   =>  'рублей'
+//    );
 }
 
 /*
@@ -32,91 +37,172 @@ function inclineWord($number, $word1, $word2, $word5) {
     если мы считаем число для мужского рода (один рубль),
     и 1 — для женского (одна тысяча)
 */
-function smallNumberToText($number, $isFemale) {
+function smallNumberToText($number, $isFemale)
+{
 
- //   echo "Передано в функцию smallNumberToText ".$number;
+    //   echo "Передано в функцию smallNumberToText ".$number;
 
 
     $spelling = array(
-        0   =>  'ноль',                                     10  =>  'десять',       100 =>  'сто',
-        1   =>  'один',         11  =>  'одиннадцать',      20  =>  'двадцать',     200 =>  'двести',
-        2   =>  'два',          12  =>  'двенадцать',       30  =>  'тридцать',     300 =>  'триста',
-        3   =>  'три',          13  =>  'тринадцать',       40  =>  'сорок',        400 =>  'четыреста',
-        4   =>  'четыре',       14  =>  'четырнадцать',     50  =>  'пятьдесят',    500 =>  'пятьсот',
-        5   =>  'пять',         15  =>  'пятнадцать',       60  =>  'шестьдесят',   600 =>  'шестьсот',
-        6   =>  'шесть',        16  =>  'шестнадцать',      70  =>  'семьдесят',    700 =>  'семьсот',
-        7   =>  'семь',         17  =>  'семнадцать',       80  =>  'восемьдесят',   800 =>  'восемьсот',
-        8   =>  'восемь',       18  =>  'восемнадцать',     90  =>  'девяносто',     900 =>  'девятьсот',
-        9   =>  'девять',       19  =>  'девятнадцать'
+        0 => 'ноль', 10 => 'десять', 100 => 'сто',
+        1 => 'один', 11 => 'одиннадцать', 20 => 'двадцать', 200 => 'двести',
+        2 => 'два', 12 => 'двенадцать', 30 => 'тридцать', 300 => 'триста',
+        3 => 'три', 13 => 'тринадцать', 40 => 'сорок', 400 => 'четыреста',
+        4 => 'четыре', 14 => 'четырнадцать', 50 => 'пятьдесят', 500 => 'пятьсот',
+        5 => 'пять', 15 => 'пятнадцать', 60 => 'шестьдесят', 600 => 'шестьсот',
+        6 => 'шесть', 16 => 'шестнадцать', 70 => 'семьдесят', 700 => 'семьсот',
+        7 => 'семь', 17 => 'семнадцать', 80 => 'восемьдесят', 800 => 'восемьсот',
+        8 => 'восемь', 18 => 'восемнадцать', 90 => 'девяносто', 900 => 'девятьсот',
+        9 => 'девять', 19 => 'девятнадцать'
     );
 
     $femaleSpelling = array(
-        1   =>  'одна',        2   =>  'две'
+        1 => 'одна', 2 => 'две'
     );
 
-   // echo "Принимаю".$number;
+    $thousandsSpeeling = array(
+        1 => 'тысяча', 2 => 'тысячи', 3 => 'тысячь'
+    );
 
-    if($number<20 and $number>0){
+    // echo "Принимаю".$number;
+
+    if ($number < 20 and $number > 0) {
         return $spelling[$number];
-    }elseif($number>20 and $number<100){
-        // echo "sadasd".$number;
-        // $number=$number*10;
-        $numbers=preg_split('//u',$number,-1,PREG_SPLIT_NO_EMPTY);
-        $decimal=$numbers[0]*10;
-        return ($spelling[$decimal]." ".$spelling[$numbers[1]]);
-    }elseif($number>100 and $number<1000){
-        echo "Принимаю - ".$number;
-        // $number=$number*10;
-    $numbers=preg_split('//u',$number,-1,PREG_SPLIT_NO_EMPTY);
-        $hundredth=$numbers[0]*100;
-    $decimal=$numbers[1]*10;
-    return ($spelling[$hundredth]." ".$spelling[$decimal]." ".$spelling[$numbers[2]]);
-    }
-    else{
+    } elseif ($number > 20 and $number < 100) {
+        $numbers = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
+        $decimal = $numbers[0] * 10;
+        return ($spelling[$decimal] . " " . $spelling[$numbers[1]]);
+    } elseif ($number > 100 and $number < 1000) {
+        echo "Принимаю - больше сотни " . $number;
+        $numbers = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
+        if (($numbers[1]) == 0) {
+            $hundredth = $numbers[0] * 100;
+            return ($spelling[$hundredth] . " " . $spelling[$numbers[2]]);
+        } else {
+            $hundredth = $numbers[0] * 100;
+            $decimal = $numbers[1] * 10;
+            return ($spelling[$hundredth] . " " . $spelling[$decimal] . " " . $spelling[$numbers[2]]);
+        }
+    } elseif ($number > 1000 and $number < 2000) {
+        echo "Принимаю больше тысячи - " . $number;
+        $numbers = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
+        if (($numbers[2]) == 0) {
+            $thousands = $numbers[0] * 1000;
+            $hundredth = $numbers[0] * 100;
+            return ($spelling[$thousands] . " " . $spelling[$hundredth] . " " . $spelling[$numbers[2]]);
 
+        } elseif (($numbers[1]) == 0 and ($numbers[2]) == 0) {
+
+            $thousands = $numbers[0] * 1000;
+            //$hundredth = $numbers[0] * 100;
+            return ($spelling[$thousands] . " " . $spelling[$numbers[2]]);
+
+        } elseif (($numbers[1]) == 0) {
+
+            $thousands = $numbers[0] * 1000;
+            // $hundredth = $numbers[0] * 100;
+            $decimal = $numbers[2] * 10;
+            return ($spelling[$thousands] . " " . ($spelling[$decimal]) . " " . $spelling[$numbers[2]]);
+
+        } else {
+            $thousands = $numbers[0] * 1000;
+            $hundredth = $numbers[1] * 100;
+            $decimal = $numbers[2] * 10;
+            return ($femaleSpelling[1] . " " . $thousandsSpeeling[1] . " " . $spelling[$hundredth] . " " . $spelling[$decimal] . " " . $spelling[$numbers[3]]);
+        }
+    } elseif ($number > 2000 and $number < 3000) {
+        echo "Принимаю больше 2 тысячи - " . $number;
+        $numbers = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
+        if (($numbers[1]) == 0) {
+            $thousands = $numbers[0] * 1000;
+            $hundredth = $numbers[0] * 100;
+            return ($spelling[$thousands] . " " . $spelling[$hundredth] . " " . $spelling[$numbers[2]]);
+        } else {
+            $thousands = $numbers[0] * 1000;
+            $hundredth = $numbers[1] * 100;
+            $decimal = $numbers[2] * 10;
+            return ($spelling[$thousands] . " " . $spelling[$hundredth] . " " . $spelling[$decimal] . " " . $spelling[$numbers[3]]);
+        }
+    } elseif ($number > 3000 and $number < 1000000) {
+        echo "Принимаю больше 3 тысячи - " . $number;
+        $numbers = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
+        if (($numbers[1]) == 0) {
+            $thousands = $numbers[0] * 1000;
+            $hundredth = $numbers[0] * 100;
+            return ($spelling[$thousands] . " " . $spelling[$hundredth] . " " . $spelling[$numbers[2]]);
+        } else {
+            $thousands = $numbers[0] * 1000;
+            $hundredth = $numbers[1] * 100;
+            $decimal = $numbers[2] * 10;
+            return ($spelling[$thousands] . " " . $spelling[$hundredth] . " " . $spelling[$decimal] . " " . $spelling[$numbers[3]]);
+        }
+    } elseif ($number > 1000000 and $number < 1000000000) {
+        echo "Принимаю больше миллиона- " . $number;
+        // $number=$number*10;
+        $numbers = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
+        if (($numbers[1]) == 0) {
+            $hundredth = $numbers[0] * 100;
+            // $decimal = $numbers[1] * 10;
+            return ($spelling[$hundredth] . " " . $spelling[$numbers[2]]);
+        } else {
+            // $numbers = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
+
+            $hundredth = $numbers[0] * 100;
+            $decimal = $numbers[1] * 10;
+            return ($spelling[$hundredth] . " " . $spelling[$decimal] . " " . $spelling[$numbers[2]]);
+        }
+    } else {
     }
     /* DIY */
 }
 
-function numberToText($number) {
+function numberToText($number)
+{
     /* DIY */
-    $digit=$number;
-    $number=preg_split('//u',$number,-1,PREG_SPLIT_NO_EMPTY);
+    $digit = $number;
+    $number = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
 
-    if(count($number)==1){
-        $lastDigit=(array_pop($number));
-        return smallNumberToText($lastDigit,0)." ".inclineWord($lastDigit,1,1,1)." ";
-    }elseif($digit<=20){
-        $lastDigit=(array_pop($number));
-        $firstDigit=array_shift($number);
-        $lastTwo=$firstDigit.$lastDigit;
-        return smallNumberToText($firstDigit,0)." ".inclineWord($lastTwo,1,1,1)." ";
-    }
-    elseif($digit<=100){
+    if (count($number) == 1) {
+        $lastDigit = (array_pop($number));
+        return smallNumberToText($lastDigit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+    } elseif ($digit <= 20) {
+        $lastDigit = (array_pop($number));
+        $firstDigit = array_shift($number);
+        $lastTwo = $firstDigit . $lastDigit;
+        return smallNumberToText($firstDigit, 0) . " " . inclineWord($lastTwo, 1, 1, 1) . " ";
+    } elseif ($digit <= 100) {
         //  echo "Передано в функцию болше|равно 2 цифор!! <br>";
-        $lastDigit=array_pop($number);
-        $firstDigit=array_shift($number);
-        // $lastDigit=inclineWord(array_pop($number),1,1,1);
-         // echo $lastDigit;
-        $lastTwo=$firstDigit.$lastDigit;
-        // echo $lastTwo;
-        // $lastDigit=array_pop($number);
-        //  echo smallNumberToText($lastTwo,0);
-
-        return smallNumberToText($lastTwo,0)." ".inclineWord($lastDigit,1,1,1)." ";
-    }
-    elseif($digit>100||$digit<1000){
-        echo "Передано в функцию болше|равно 100 {$digit}!! <br>";
-        $lastDigit=array_pop($number);
-       // $firstDigit=array_shift($number);
+        $lastDigit = array_pop($number);
+        $firstDigit = array_shift($number);
         // $lastDigit=inclineWord(array_pop($number),1,1,1);
         // echo $lastDigit;
-       // $lastTwo=$firstDigit.$lastDigit;
+        $lastTwo = $firstDigit . $lastDigit;
         // echo $lastTwo;
         // $lastDigit=array_pop($number);
         //  echo smallNumberToText($lastTwo,0);
-
-        return smallNumberToText($digit,0)." ".inclineWord($lastDigit,1,1,1)." ";
+        return smallNumberToText($lastTwo, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+    } elseif ($digit > 100 and $digit < 1000) {
+        echo "Передано в функцию болше|равно 100 {$digit}!! <br>";
+        $lastDigit = array_pop($number);
+        // $firstDigit=array_shift($number);
+        // $lastDigit=inclineWord(array_pop($number),1,1,1);
+        // echo $lastDigit;
+        // $lastTwo=$firstDigit.$lastDigit;
+        // echo $lastTwo;
+        // $lastDigit=array_pop($number);
+        //  echo smallNumberToText($lastTwo,0);
+        return smallNumberToText($digit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+    } elseif ($digit > 1000 and $digit < 1000000) {
+        echo "Передано в функцию болше|равно 100 {$digit}!! <br>";
+        $lastDigit = array_pop($number);
+        $firstDigit = array_shift($number);
+        // $lastDigit=inclineWord(array_pop($number),1,1,1);
+        // echo $lastDigit;
+        // $lastTwo=$firstDigit.$lastDigit;
+        // echo $lastTwo;
+        // $lastDigit=array_pop($number);
+        //  echo smallNumberToText($lastTwo,0);
+        return smallNumberToText($digit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
     }
 }
 
@@ -145,7 +231,7 @@ function numberToText($number) {
 //$text1 = numberToText($amount1);
 //echo "<br> На вашем счету {$text1}\n";
 //
-$amount2= mt_rand(101,999);
+$amount2 = 1000;
 $text2 = numberToText($amount2);
 echo "<br>На вашем счету {$text2}\n";
 //
