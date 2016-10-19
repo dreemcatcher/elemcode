@@ -64,8 +64,10 @@ function smallNumberToText($number, $isFemale)
         $decimal = $splitter[0] * 10;
         return ($spelling[$decimal] . " " . $spelling[$splitter[1]]);
     }
-    elseif ($number > 100 and $number < 1000)
+    elseif ($number >= 100 and $number < 1000)
     {
+
+      //  echo "cjnybbbbb";
         if(($splitter[1]) == 0){
             $hundredth = $splitter[0] * 100;
             return ($spelling[$hundredth] . " " . $spelling[$splitter[2]]);
@@ -152,6 +154,9 @@ function smallNumberToText($number, $isFemale)
 function numberToText($number)
 {
     /* DIY */
+
+    //$resultString='';
+    $r='';
     $digit = $number;
     $number = preg_split('//u', $number, NULL , PREG_SPLIT_NO_EMPTY);
     $lastDigit = (array_pop($number));
@@ -169,10 +174,7 @@ function numberToText($number)
     var_dump($number);
     echo "</pre>";
 
-    if($digit<10){
-        $resultString= smallNumberToText($digit, 0) . " " . inclineWord($digit, 1, 1, 1) . " ";
-        return $resultString;
-    }else {
+
         for ($i = count($number); $i > 0; $i--) {
             switch ($i) {
                 case ($i == 4):
@@ -180,6 +182,9 @@ function numberToText($number)
                     break;
                 case ($i == 3):
                     echo "Четыре цифры";
+                    $resultString = smallNumberToText($number[2], 1)." тысяча ";
+                    $resultString = $resultString ."". smallNumberToText($digit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+
                     break;
                 case ($i == 2):
                     echo "Три цифры{$digit}";
@@ -203,7 +208,10 @@ function numberToText($number)
             }
             return $resultString;
         }
-    }
+   // }
+
+
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -286,7 +294,7 @@ function numberToText($number)
 //echo "<br> На вашем счету {$text1}\n";
 //
 
-for ($i=19;$i<111; $i++) {
+for ($i=3100;$i<3111; $i++) {
     $amount2 = $i;
     $text2 = numberToText($amount2);
     echo "<br>На вашем счету {$text2}\n<br><br><br>---------------------------------";

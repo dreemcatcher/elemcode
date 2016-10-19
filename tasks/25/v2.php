@@ -7,7 +7,6 @@ mb_internal_encoding('utf-8');
 function inclineWord($number, $word1, $word2, $word5) {
     /* DIY */
 }
-
 /*
     Преобразует числа от 0 до 999 в текст. Параметр $isFemale равен нулю,
     если мы считаем число для мужского рода (один рубль),
@@ -33,45 +32,80 @@ function smallNumberToText($number, $isFemale) {
     );
 
 
-    return $spelling[1];
+    if ($number <= 20)
+    {
+        return $spelling[$number];
+    }
+    elseif ($number > 20 and $number < 100)
+    {
+        $decimal = $splitter[0] * 10;
+        return ($spelling[$decimal] . " " . $spelling[$splitter[1]]);
+    }
+    elseif ($number >= 100 and $number < 1000)
+    {
+
+        //  echo "cjnybbbbb";
+        if(($splitter[1]) == 0){
+            $hundredth = $splitter[0] * 100;
+            return ($spelling[$hundredth] . " " . $spelling[$splitter[2]]);
+        } else {
+            $hundredth = $splitter[0] * 100;
+            $decimal = $splitter[1] * 10;
+            return ($spelling[$hundredth] . " " . $spelling[$decimal] . " " . $spelling[$splitter[2]]);
+        }
+    }
+
+    return $spelling;
     /* DIY */
 }
 
 function numberToText($number) {
-
     /* DIY */
+    // На всякий случай
+    $digits=$number;
     $resultString='';
-
     //  Переверным полученное число и начнём рассказ о нём с конца .
     // 53 рубля
     // сто
     // двенадцать тысячь
     // сто
     // один миллион
-
     // Делим число на части по 3 начиная с конца.
     // Отделим три последние цифры
     $splitter=preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
+    echo "<br> Переводим число ".$number."<br>";
+    // перед тем, как брыть, узнаем, действительно ли там есть 3 цифры.
+    if ($number>=100 and $number<=999){
+        // Берём 3 числа
+       // $splitter
+        //return smallNumberToText($number);
+        $resultString=$resultString ." ". smallNumberToText($number);
+    }else{
 
-
-
-    echo "<br>".$number."<br>";
-
-    echo $number."<br>";
-    echo "<pre>";
-    print_r ($splitter);
-    echo "</pre>";
-
-    echo "<pre>";
-    var_dump($splitter);
-    echo "</pre>";
-
-
-    for($i=$number;$i>0;$i=($i/10)){
-      //  echo "{$i}";
     }
 
-
+//    echo $number."<br>";
+//    echo "<pre>";
+//    print_r ($splitter);
+//    echo "</pre>";
+//
+//    echo "<pre>";
+//    var_dump($splitter);
+//    echo "</pre>";
+    $splitRound=array_reverse($splitter);
+//    echo "<br>".$number."<br>";
+//
+//    echo $number."<br>";
+//    echo "<pre>";
+//    print_r ($splitRound);
+//    echo "</pre>";
+//
+//    echo "<pre>";
+//    var_dump($splitRound);
+//    echo "</pre>";
+        foreach ($splitRound as  $val){
+            echo $val;
+        }
     return $resultString;
 }
 
@@ -95,5 +129,8 @@ $amount4 = mt_rand(1,99999999);
 $text4 = numberToText($amount4);
 
 echo "На вашем счету {$text4}\n";
-     
-     
+
+$amount4 = mt_rand(1,22);
+$text4 = numberToText($amount4);
+
+echo "На вашем счету {$text4}\n";
