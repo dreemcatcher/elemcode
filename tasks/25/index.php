@@ -294,7 +294,7 @@ function numberToText($number)
 //echo "<br> На вашем счету {$text1}\n";
 //
 
-for ($i=3100;$i<3111; $i++) {
+for ($i=1;$i<111; $i++) {
     $amount2 = $i;
     $text2 = numberToText($amount2);
     echo "<br>На вашем счету {$text2}\n<br><br><br>---------------------------------";
