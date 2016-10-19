@@ -12,17 +12,11 @@ function inclineWord($number, $word1, $word2, $word5)
     // echo "Передано в функцию руб ".$number;
     if ($number == 1) {
         return "рубль";
-    } elseif ($number == 2 || $number == 3 || $number == 4) {
+    }elseif ($number == 2 || $number == 3 || $number == 4){
         return "рубля";
-    } elseif ($number == 0) {
+    }elseif ($number == 0 || $number >5 and $number<21){
         return "рублей";
-    }
-    //elseif($number>=1000 and $number<=1000000 ){
-    //    if($number==1000)
-    //    return "рублей";
-//}
-
-    else {
+    }else {
         return "рублей";
     }
 //    $rubl=array (
@@ -39,10 +33,6 @@ function inclineWord($number, $word1, $word2, $word5)
 */
 function smallNumberToText($number, $isFemale)
 {
-
-    //   echo "Передано в функцию smallNumberToText ".$number;
-
-
     $spelling = array(
         0 => 'ноль', 10 => 'десять', 100 => 'сто',
         1 => 'один', 11 => 'одиннадцать', 20 => 'двадцать', 200 => 'двести',
@@ -55,35 +45,38 @@ function smallNumberToText($number, $isFemale)
         8 => 'восемь', 18 => 'восемнадцать', 90 => 'девяносто', 900 => 'девятьсот',
         9 => 'девять', 19 => 'девятнадцать'
     );
-
     $femaleSpelling = array(
         1 => 'одна', 2 => 'две'
     );
-
     $thousandsSpeeling = array(
         1 => 'тысяча', 2 => 'тысячи', 3 => 'тысячь'
     );
 
-    // echo "Принимаю".$number;
+    $splitter=preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
 
-    if ($number < 20 and $number > 0) {
+
+    if ($number <= 20)
+    {
         return $spelling[$number];
-    } elseif ($number > 20 and $number < 100) {
-        $numbers = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
-        $decimal = $numbers[0] * 10;
-        return ($spelling[$decimal] . " " . $spelling[$numbers[1]]);
-    } elseif ($number > 100 and $number < 1000) {
-        echo "Принимаю - больше сотни " . $number;
-        $numbers = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
-        if (($numbers[1]) == 0) {
-            $hundredth = $numbers[0] * 100;
-            return ($spelling[$hundredth] . " " . $spelling[$numbers[2]]);
+    }
+    elseif ($number > 20 and $number < 100)
+    {
+        $decimal = $splitter[0] * 10;
+        return ($spelling[$decimal] . " " . $spelling[$splitter[1]]);
+    }
+    elseif ($number > 100 and $number < 1000)
+    {
+        if(($splitter[1]) == 0){
+            $hundredth = $splitter[0] * 100;
+            return ($spelling[$hundredth] . " " . $spelling[$splitter[2]]);
         } else {
-            $hundredth = $numbers[0] * 100;
-            $decimal = $numbers[1] * 10;
-            return ($spelling[$hundredth] . " " . $spelling[$decimal] . " " . $spelling[$numbers[2]]);
+            $hundredth = $splitter[0] * 100;
+            $decimal = $splitter[1] * 10;
+            return ($spelling[$hundredth] . " " . $spelling[$decimal] . " " . $spelling[$splitter[2]]);
         }
-    } elseif ($number > 1000 and $number < 2000) {
+    }
+    elseif ($number > 1000 and $number < 2000)
+    {
         echo "Принимаю больше тысячи - " . $number;
         $numbers = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
         if (($numbers[2]) == 0) {
@@ -160,50 +153,111 @@ function numberToText($number)
 {
     /* DIY */
     $digit = $number;
-    $number = preg_split('//u', $number, -1, PREG_SPLIT_NO_EMPTY);
+    $number = preg_split('//u', $number, NULL , PREG_SPLIT_NO_EMPTY);
+    $lastDigit = (array_pop($number));
 
-    if (count($number) == 1) {
-        $lastDigit = (array_pop($number));
-        return smallNumberToText($lastDigit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
-    } elseif ($digit <= 20) {
-        $lastDigit = (array_pop($number));
-        $firstDigit = array_shift($number);
-        $lastTwo = $firstDigit . $lastDigit;
-        return smallNumberToText($firstDigit, 0) . " " . inclineWord($lastTwo, 1, 1, 1) . " ";
-    } elseif ($digit <= 100) {
-        //  echo "Передано в функцию болше|равно 2 цифор!! <br>";
-        $lastDigit = array_pop($number);
-        $firstDigit = array_shift($number);
-        // $lastDigit=inclineWord(array_pop($number),1,1,1);
-        // echo $lastDigit;
-        $lastTwo = $firstDigit . $lastDigit;
-        // echo $lastTwo;
-        // $lastDigit=array_pop($number);
-        //  echo smallNumberToText($lastTwo,0);
-        return smallNumberToText($lastTwo, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
-    } elseif ($digit > 100 and $digit < 1000) {
-        echo "Передано в функцию болше|равно 100 {$digit}!! <br>";
-        $lastDigit = array_pop($number);
-        // $firstDigit=array_shift($number);
-        // $lastDigit=inclineWord(array_pop($number),1,1,1);
-        // echo $lastDigit;
-        // $lastTwo=$firstDigit.$lastDigit;
-        // echo $lastTwo;
-        // $lastDigit=array_pop($number);
-        //  echo smallNumberToText($lastTwo,0);
-        return smallNumberToText($digit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
-    } elseif ($digit > 1000 and $digit < 1000000) {
-        echo "Передано в функцию болше|равно 100 {$digit}!! <br>";
-        $lastDigit = array_pop($number);
-        $firstDigit = array_shift($number);
-        // $lastDigit=inclineWord(array_pop($number),1,1,1);
-        // echo $lastDigit;
-        // $lastTwo=$firstDigit.$lastDigit;
-        // echo $lastTwo;
-        // $lastDigit=array_pop($number);
-        //  echo smallNumberToText($lastTwo,0);
-        return smallNumberToText($digit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+    $resultString='';
+
+    echo "<br>".$digit."<br>";
+
+    echo $lastDigit."<br>";
+    echo "<pre>";
+    print_r ($number);
+    echo "</pre>";
+
+    echo "<pre>";
+    var_dump($number);
+    echo "</pre>";
+
+    if($digit<10){
+        $resultString= smallNumberToText($digit, 0) . " " . inclineWord($digit, 1, 1, 1) . " ";
+        return $resultString;
+    }else {
+        for ($i = count($number); $i > 0; $i--) {
+            switch ($i) {
+                case ($i == 4):
+                    echo "5 цифр";
+                    break;
+                case ($i == 3):
+                    echo "Четыре цифры";
+                    break;
+                case ($i == 2):
+                    echo "Три цифры{$digit}";
+                    //echo "Три цифры";
+                    $resultString = smallNumberToText($digit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+                    break;
+                case ($i == 1):
+                    //echo "Две цифры";
+                    if ($digit >= 21 and $digit <100 ) {
+                        $resultString = smallNumberToText($digit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+                    } else {
+                        $resultString = smallNumberToText($digit, 0) . " " . inclineWord($digit, 1, 1, 1) . " ";
+                    }
+                    break;
+//                case ($i == 0):
+//                    echo "Обрабатывать это ещё, нафиг, есть if наверху!\n";
+//                    break;
+                case ($i == (-1)):
+                    echo "Тут явно что-то не так.";
+                    break;
+            }
+            return $resultString;
+        }
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+//    if (count($number) == 1) {
+//        $lastDigit = (array_pop($number));
+//        return smallNumberToText($lastDigit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+//    } elseif ($digit <= 20) {
+//        $lastDigit = (array_pop($number));
+//        $firstDigit = array_shift($number);
+//        $lastTwo = $firstDigit . $lastDigit;
+//        return smallNumberToText($firstDigit, 0) . " " . inclineWord($lastTwo, 1, 1, 1) . " ";
+//    } elseif ($digit <= 100) {
+//        //  echo "Передано в функцию болше|равно 2 цифор!! <br>";
+//        $lastDigit = array_pop($number);
+//        $firstDigit = array_shift($number);
+//        // $lastDigit=inclineWord(array_pop($number),1,1,1);
+//        // echo $lastDigit;
+//        $lastTwo = $firstDigit . $lastDigit;
+//        // echo $lastTwo;
+//        // $lastDigit=array_pop($number);
+//        //  echo smallNumberToText($lastTwo,0);
+//        return smallNumberToText($lastTwo, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+//    } elseif ($digit > 100 and $digit < 1000) {
+//        echo "Передано в функцию болше|равно 100 {$digit}!! <br>";
+//        $lastDigit = array_pop($number);
+//        // $firstDigit=array_shift($number);
+//        // $lastDigit=inclineWord(array_pop($number),1,1,1);
+//        // echo $lastDigit;
+//        // $lastTwo=$firstDigit.$lastDigit;
+//        // echo $lastTwo;
+//        // $lastDigit=array_pop($number);
+//        //  echo smallNumberToText($lastTwo,0);
+//        return smallNumberToText($digit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+//    } elseif ($digit > 1000 and $digit < 1000000) {
+//        echo "Передано в функцию болше|равно 100 {$digit}!! <br>";
+//        $lastDigit = array_pop($number);
+//        $firstDigit = array_shift($number);
+//        // $lastDigit=inclineWord(array_pop($number),1,1,1);
+//        // echo $lastDigit;
+//        // $lastTwo=$firstDigit.$lastDigit;
+//        // echo $lastTwo;
+//        // $lastDigit=array_pop($number);
+//        //  echo smallNumberToText($lastTwo,0);
+//        return smallNumberToText($digit, 0) . " " . inclineWord($lastDigit, 1, 1, 1) . " ";
+//    }
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 ///* Вызовем функцию несколько раз */
@@ -231,9 +285,12 @@ function numberToText($number)
 //$text1 = numberToText($amount1);
 //echo "<br> На вашем счету {$text1}\n";
 //
-$amount2 = 1000;
-$text2 = numberToText($amount2);
-echo "<br>На вашем счету {$text2}\n";
+
+for ($i=19;$i<111; $i++) {
+    $amount2 = $i;
+    $text2 = numberToText($amount2);
+    echo "<br>На вашем счету {$text2}\n<br><br><br>---------------------------------";
+}
 //
 //$amount3=5515;
 //$text3 = numberToText($amount3);
@@ -242,3 +299,5 @@ echo "<br>На вашем счету {$text2}\n";
 //$amount4=1111;
 //$text4 = numberToText($amount4);
 //echo "На вашем счету {$text4}\n";
+
+
