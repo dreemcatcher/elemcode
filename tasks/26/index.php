@@ -12,9 +12,13 @@ for ($i=0; $i<$inputLength;$i++){
     $char=mb_substr($input, $i, 1);
 
     if ($char=="*"||$char=="+"||$char=="-"||$char=="=") {
-        //$result=$number;
-        $op="$char";
-        if ($op == "+") {
+        //$op
+        if($op==''){
+            $op=$char;
+            $result=$number;
+            $number=0;
+        }
+        elseif ($op == "+") {
             ///echo $result . "<br>";
             echo "Выполняем действие" . $result . "+" . $number;
             $result = (intval($result)) + (intval($number));
