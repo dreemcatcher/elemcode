@@ -1,51 +1,47 @@
 <?php
-$input='10+10+10+10+10-10+10*2-2=';
+$input='243+6743-78*2=';
 $inputLength = mb_strlen($input);
 
 $result=0;
 $number=0;
 $op="";
 
-echo $input."<br>";
-echo $result."<br>";
 for ($i=0; $i<$inputLength;$i++){
     $char=mb_substr($input, $i, 1);
 
     if ($char=="*"||$char=="+"||$char=="-"||$char=="=") {
-        //$op
         if($op==''){
             $op=$char;
             $result=$number;
             $number=0;
         }
         elseif ($op == "+") {
-            ///echo $result . "<br>";
-            echo "Выполняем действие" . $result . "+" . $number;
+            echo "Выполняем действие " . $result . "+" . $number;
             $result = (intval($result)) + (intval($number));
-            echo "={$result}<br>";
+            echo "={$result} \n";
             $op=$char;
             $number = 0;
         } elseif ($op == "-") {
-            echo "Выполняем действие" . $result . "-" . $number;
+            echo "Выполняем действие " . $result . "-" . $number;
             $result = (intval($result)) - (intval($number));
-            echo "={$result}<br>";
+            echo "={$result} \n";
             $op=$char;
             $number = 0;
             } elseif ($op == "*") {
-            echo "Выполняем действие" . $result . "*" . $number;
+            echo "Выполняем действие " . $result . "*" . $number;
             $result = (intval($result)) * (intval($number));
-            echo "={$result}<br>";
+            echo "={$result} \n";
             $op=$char;
             $number = 0;
-            } elseif ($op == "=") {
-            echo "Финальный Результат" . $result;
+            } elseif ($char=="=") {
+            echo "Финальный результат = " . $result;
             exit;
             } else {
-            echo "11111111";
+            echo "Что-то пошло не так.";
             }
 
     }elseif (is_numeric($char)){
-        echo "Поступило число  : {$char}.<br>";
+       /// echo "Поступило число  : {$char}. \n";
         $number=($number*10)+$char;
     }else{
         echo "Неверный символ: '$char'\n";
