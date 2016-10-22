@@ -22,6 +22,8 @@ if (($manThrowOne == $manThrowSecond) && ($AIThrowOne == $AIThrowSecond)) {
     echo "Бросок AI лучше. AI победил!";
 }
 //(если одинаковая — победила дружба)
-elseif ($sumManThrow = $sumAIThrow) {
+//op
+//elseif ($sumManThrow = $sumAIThrow) {
+else{
     echo "Победила дружба!";
 }

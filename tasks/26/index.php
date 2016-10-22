@@ -9,39 +9,57 @@ $op="";
 for ($i=0; $i<$inputLength;$i++){
     $char=mb_substr($input, $i, 1);
 
-    if ($char=="*"||$char=="+"||$char=="-"||$char=="=") {
-        if($op==''){
-            $op=$char;
-            $result=$number;
-            $number=0;
+    if ($char=="*"||$char=="+"||$char=="-"||$char=="/"||$char=="^"||$char=="=")  {
+        switch($op) {
+            case '':
+                $op = $char;
+                $result = $number;
+                $number = 0;
+                break;
+            case "+":
+                echo "Выполняем действие " . $result . "+" . $number;
+                $result = (intval($result)) + (intval($number));
+                echo "={$result} \n";
+                $op = $char;
+                $number = 0;
+                break;
+            case "-":
+                echo "Выполняем действие " . $result . "-" . $number;
+                $result = (intval($result)) - (intval($number));
+                echo "={$result} \n";
+                $op=$char;
+                $number = 0;
+                break;
+            case "*":
+                echo "Выполняем действие " . $result . "*" . $number;
+                $result = (intval($result)) * (intval($number));
+                echo "={$result} \n";
+                $op=$char;
+                $number = 0;
+                break;
+            case "/":
+                echo "Выполняем действие " . $result . "/" . $number;
+                $result = (intval($result)) / (intval($number));
+                echo "={$result} \n";
+                $op=$char;
+                $number = 0;
+                break;
+            case "^":
+                echo "Выполняем действие " . $result . "^" . $number;
+                $result = (intval($result)) ^ (intval($number));
+                echo "={$result} \n";
+                $op=$char;
+                $number = 0;
+                break;
+            case "=":
+                echo "Финальный результат = " . $result;
+                exit;
         }
-        elseif ($op == "+") {
-            echo "Выполняем действие " . $result . "+" . $number;
-            $result = (intval($result)) + (intval($number));
-            echo "={$result} \n";
-            $op=$char;
-            $number = 0;
-        } elseif ($op == "-") {
-            echo "Выполняем действие " . $result . "-" . $number;
-            $result = (intval($result)) - (intval($number));
-            echo "={$result} \n";
-            $op=$char;
-            $number = 0;
-            } elseif ($op == "*") {
-            echo "Выполняем действие " . $result . "*" . $number;
-            $result = (intval($result)) * (intval($number));
-            echo "={$result} \n";
-            $op=$char;
-            $number = 0;
-            } elseif ($char=="=") {
-            echo "Финальный результат = " . $result;
-            exit;
-            } else {
-            echo "Что-то пошло не так.";
-            }
-
+        if ($char=="="){
+                echo "Финальный результат = " . $result;
+                exit;
+        }
     }elseif (is_numeric($char)){
-       /// echo "Поступило число  : {$char}. \n";
         $number=($number*10)+$char;
     }else{
         echo "Неверный символ: '$char'\n";

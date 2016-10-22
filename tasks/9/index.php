@@ -14,7 +14,7 @@ $answers = array(
 );
 
 $question = 'Выучу ли я PHP?';
-$random=array_rand ($answers, 2);
+$random=array_rand ($answers, 5);
 $answer=$answers[$random[0]];
 
 echo "Вопрос:{$question}\n";
