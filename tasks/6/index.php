@@ -19,13 +19,13 @@ for($i=1;$i<1000;$i++){
     echo "В этом месяце вашь долг равен".$oversum."<br>";
 
     if ($oversum>5000){
-        $credit=$credit-$mounthlyPayment+$commission+($credit*($percent/100));
+        $credit=$oversum-$mounthlyPayment;
         $worthMoney= $worthMoney+$mounthlyPayment;
         echo $i." платёж. Выплачено ".$worthMoney. " рублей. Остаток по кредиту - ".$credit."<br>";
         echo $credit."<br>";
     }
-    elseif($oversum<5000){
-        $credit=($credit+$commission+($credit*($percent/100)))-$oversum;
+    elseif($oversum<=5000){
+        $credit=0;
         $worthMoney= $worthMoney+$oversum;
         echo "Последний ". $i." платёж. Выплачено ".$worthMoney. " рублей. Остаток по кредиту - ".$credit."<br>";
         break;
