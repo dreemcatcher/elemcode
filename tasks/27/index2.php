@@ -46,11 +46,11 @@ function getMoney($summ){
                     // Ушла в минус - откатываем последнюю операцию, уменьшаем номинал, вычитаем снова.
                     // пока массив не кончится. 0
                     //tst
-                    //echo " номинал ".$nominal."\n";
-                    //echo " Сумма к снятию  ".$tempSumm."\n";
+                    //echo " номинал ".$nominal."<br>";
+                    //echo " Сумма к снятию  ".$tempSumm."<br>";
                     if($tempSumm==0) {
                         //echo "Я здесь, чтобы сообщить об успехах\n";
-                        //echo "Ты снял {$summ} рублей. Купюрами про {$nominal}\n";
+                        //echo "Ты снял {$summ} рублей. Купюрами про {$nominal}<br>";
                         break;
                         // Успех. Сумма сошлась, можно выдавать return
                     }elseif($tempSumm<0 and  $nominal>=100){
@@ -63,39 +63,46 @@ function getMoney($summ){
                         if ($nomQuantity>0 and $nomQuantity-$counterBills>0){
 
                             $tempSumm=$tempSumm-$nominal;
+
                             $counterBills=$counterBills+1;
-                            //echo "Выдаю 1 купюру номиналом ".$nominal." осталось выдать {$tempSumm}.\n";
+
+                            echo "Выдаю 1 купюру номиналом ".$nominal." осталось выдать {$tempSumm}.<br>";
+                            echo "КБ ".$counterBills." <br>";
+                            //$nominalArray[$nominal]=$counterBills;
+                           // $nomQuantity=$nomQuantity-1;
+                         //   echo "КБ ".$counterBills." <br>";
                             $nominalArray[$nominal]=$counterBills;
-                            $nomQuantity=$nomQuantity-1;
-                            //echo "Тут сменил количество купюр на -1 ::: {$nomQuantity}";
-                            //$billsReverse[$nominal]=$nomQuantity;
+
+                            echo "Записано в arr {$nominal} :". $nominalArray[$nominal];
+                          //  echo "Тут сменил количество купюр {$nomQuantity} ";
+                           // $billsReverse[$nominal]=$nomQuantity;
                         }else{
-                            //echo "0 купюр данного номинала, выдам другими \n";
+                            //echo "0 купюр данного номинала, выдам другими <br>";
                             next($billsReverse);
                         }
                     }
                     elseif($tempSumm<$nominal){
                         //$tempSumm=$tempSumm-$nominal;
-                        $counterBills=0;
+                       // $counterBills=0;
                         next($billsReverse);
-                        //   echo "Прокручиваю массив до следующего номинала.\n";
+                        //   echo "Прокручиваю массив до следующего номинала.<br>";
                     }
                     else{
-                        echo "Я тут, чтобы предупредить тебя об ошибках.\n";
-                        echo ";{$nominal};{$tempSumm};{}\n";
+                        echo "Я тут, чтобы предупредить тебя об ошибках.<br>";
+                        echo ";{$nominal};{$tempSumm};{}<br>";
                         // Тут такая то обработка ошибок
                         break;
                     }
                 }
             }
 
-            $nominalArray[$nominal]=$counterBills;
+         //   $nominalArray[$nominal]=$counterBills;
            echo "Ну и в итоге....\n";
             echo "<pre>";
             print_r($nominalArray);
             echo "</pre>";
         }else{
-            echo "Снимать можно только суммы кратные 100\n";
+            echo "Снимать можно только суммы кратные 100<br>";
         }
     }
 
@@ -108,8 +115,7 @@ function getMoney($summ){
 }
 
 $operations=array(
-    7800,
-    8000,
+    3300,
     100,
     3200,
     200,
