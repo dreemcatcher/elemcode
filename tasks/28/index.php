@@ -1,7 +1,5 @@
 <?php
-
 error_reporting(-1);
-
 mb_internal_encoding('utf-8');
 $text="Дым табачный воздух выел.
 Комната —
@@ -17,68 +15,41 @@ $text="Дым табачный воздух выел.
 может быть, изругав.
 В мутной передней долго не влезет
 сломанная дрожью рука в рукав.";
-
 $lines = explode ("\n",$text);
-//print_r($lines); //чтобы посмотреть результат !
-
-//echo count($lines)."<br>";
-
+$doubleArray=array();
 //echo "<pre>";
-//print_r ;
+//print_r ($lines);
 //echo "</pre>";
-
 for ($i=0; $i < count($lines); $i++){
-
-//    echo "<pre>";
-//    print_r($lines[$i]) ;
-//    echo "</pre>";
-
-
-
     $symbol = preg_split('//u', $lines[$i], -1, PREG_SPLIT_NO_EMPTY);
+    for ($j=0; $j<count($symbol); $j++) {
+        $doubleArray[$i][$j] = $symbol[$j];
+    }
 //    echo "<pre>";
-//    print_r($symbol) ;
+//    print_r ($symbol);
 //    echo "</pre>";
-
-
-
-    for  ($j=0; $j < count($lines); $j++) {
-        $symbols = preg_split('//u', $lines[$j], -1, PREG_SPLIT_NO_EMPTY);
-        //echo $symbols[$i];
-        if ((array_key_exists($i, $symbols))==true) {
-            if ($symbols[$i]==' '){
-                echo "&nbsp &nbsp";
+}
+//echo "<pre>";
+// print_r ($doubleArray);
+//echo "</pre>";
+?>
+<table><tr>
+<?php
+for ($k=0;$k<33;$k++){
+    for($r=0; $r<count($doubleArray);$r++){
+        if (isset($doubleArray[$r][$k])) {
+            // Чтобы было как у опа
+            if($doubleArray[$r][$k]==' '){
+                echo  "<td>&#8195&#8195|</td>";
             }
             else{
-                echo "&nbsp ".$symbols[$i]."&nbsp ";
+                echo  "<td>&#8195".$doubleArray[$r][$k]."&nbsp&nbsp|</td>";
             }
-
-
-        }else{
-            echo " ";
+        }
+        else {
+            echo " <td>&#8195&#8195|</td>";
         }
     }
-    echo "<br>";
-        //$symbols = preg_split('//u', $lines[$j], -1, PREG_SPLIT_NO_EMPTY);
-
- //   }
-   // echo "<br>";
+    echo "</tr><tr>";
 }
-
-
-//
-//
-//    for ($i=0; $i < count($lines); $i++){
-//        //$symbols = preg_split('//u', $lines[$i], -1, PREG_SPLIT_NO_EMPTY);
-//        for  ($j=0; $j < count($lines[$i]); $j++) {
-//            $symbols = preg_split('//u', $lines[$i], -1, PREG_SPLIT_NO_EMPTY);
-//
-//
-//           // if ((array_key_exists($j, $symbols))==true) {
-//                echo "&nbsp&nbsp".$symbols[$j]."&nbsp&nbsp";
-//           // }else{
-//           //     echo "&nbsp|&nbsp";
-//           // }
-//        }
-//        echo "<br>";
-//    }
+?></tr></table>
