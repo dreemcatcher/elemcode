@@ -48,35 +48,49 @@ foreach($phrase as $key => $symbol){
 
 
     echo $key."<br>";
+    //$balansir=($key/2)-$key;
     $alpha=$key/$radius;
    // $sinalpha=0;
     // x KO=LO*sin(@)
     // y LK=LO*cos(@)
-    $x=round($radius*(sin($alpha)*57.2958))/10;
-    $y=round($radius*(cos($alpha)*57.2958))/10;
+    $x=round($radius*(sin($alpha)*57.2958))/20;
+    $y=round($radius*(cos($alpha)*57.2958))/20;
 
-    $x=round($x);
-    $y=round($y);
+    $x=(round(($x))+40);
+    $y=(round(($y))+40);
+
+    // координаты начала - 0 0
+    // координаты конца -
 
     echo "$symbol координата х = {$x} координата y = {$y}"."<br>";
 
-    $screen[$y][$x]='A';
+    $screen[$y][$x]=$phrase[$key];
 
 }
 
+//          |                 0
+// x -1 y1  |   x1 y1
+//          |
+//--------------------------- 40
+//          |
+// x -1 y -1|   x1 y-1
+//          |
+//  0         40
 
-echo "<pre>";
-print_r ($screen);
-echo "</pre>";
+//echo "<pre>";
+//print_r ($screen);
+//echo "</pre>";
 
 
 
 foreach ($screen as $val){
 
     foreach ($val as $symbol){
-
-        echo "[]";
-
+       // if(!isset($symbol)){
+            echo "$symbol";
+       // }else{
+            echo "[]";
+       // }
     }
 
     echo "<br>";
