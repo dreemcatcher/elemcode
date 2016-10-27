@@ -6,6 +6,8 @@ $total=30;
 $skip=5;
 $survivors=7; // Видимо столько должно остаться
 $allPeople=array();
+$loosers=array();
+$winners=array();
 
 function generateName()
 {
@@ -25,86 +27,73 @@ function generateName()
     return $name;
 }
 
+
 for ($i=0;$i<$total;$i++){
-    $allPeople[$i]=generateName();
+    $newname=generateName();
+    $allPeople[$i]=$newname;
+    $cloneallPeople[$i]=$newname;
 }
-
-echo "<pre>";
- print_r ($allPeople);
-echo "</pre>";
-
-//unset($allPeople[1]);
-//unset($allPeople[2]);
-//unset($allPeople[3]);
-//unset($allPeople[4]);
-//unset($allPeople[5]);
-//echo count($allPeople)."<br>";
-//unset($allPeople[29]);
-//echo count($allPeople)."<br>";
-//unset($allPeople[20]);
-//echo count($allPeople)."<br>";
-//unset($allPeople[15]);
-//echo count($allPeople)."<br>";
+//foreach ($allPeople as $key => $value){
+//  //  array_push();
+//}
 
 //echo "<pre>";
-//print_r ($allPeople);
+// print_r ($allPeople);
 //echo "</pre>";
-$slog=0;
-$k=0;
-$j=0;
+while ($survivors<(count($allPeople))){
+    for ($i=0;$i<count($allPeople);){
+        for($j=0; $j <$survivors+1;){
+         //   echo "[$j]<br>";
+            if ($j==$skip){
+                if (count($allPeople)<=$survivors){
+//                    echo "Массив осташихся<br>";
+//                    echo "<pre>";
+//                    print_r($allPeople);
+//                    echo "</pre>";
+//
+//                    echo "Выбывшие <br>";
+//                    echo "<pre>";
+//                    print_r(array_keys($loosers));
+//                    echo "</pre>";
+//
+//                    echo "Оставшиеся <br>";
+//
+////                    foreach ($cloneallPeople as $key => $val)
+////                    {
+////                        $keyy = array_search('green', $array);
+////                        echo $key.$val;
+////                    }
+////
+////                    echo "<pre>";
+////                    print_r($cloneallPeople);
+////                    echo "</pre>";
+////  array_diff_key
+                    break;
+                }
+              //  echo "Сколько человек в массиве ".count($allPeople)."<br>";
+              //  echo $allPeople[$i]." выбывает<br>";
+                //$str_Key = $row['key'];
+                $loosers[$i]=$allPeople[$i];
+                unset($allPeople[$i]);
+                sort($allPeople);
+              //  echo $i."<br>";
 
-for($i=0; $i<($total-$survivors);$i++){
-    $j++;
-    $k++;
-    if ( $k==5){
-        $k=0;
-        unset($allPeople[$i]);
-        echo $i."<br>";
-    }else{}
-    if($j==$allPeople){
-        $j=0;
-    }else{}
+                $j=0;
+            }
+            else{
+                $i++;
+                if($i>count($allPeople)){
+                    $i=0;
+                }
+                $j++;
+            }
+        }
+    }
 }
-//while ($survivors<count($allPeople)){
-  //  $k++;
-  //  if($k==count($allPeople)){
-    //    $k=0;
-  ////  }else{
-     //   if ($slog==$skip){
-
-         //   $slog=0;
-       // }
-       // else
-       // {
-       //     $slog++;
-       // }
-  //  }
-//}
-//while (count($allPeople)>$survivors ){
-//    $w++;
-//    //for ($k=0; ;$k++){
-//
-//    echo "Маркер 4";
-//
-//        if ($w==count($allPeople)){
-//            $w=0;
-//            echo "Маркер 3";
-//        }
-//        else {
-//            if($slog==5){
-//                unset($allPeople[$w]);
-//               // sort($allPeople);
-//               // echo "Тут такой " .current( $allPeople )." выбывает.<br>";
-//                echo "Маркер 1";
-//                $slog=0;
-//            }
-//            else{
-//                echo "Маркер 2";
-//                $slog++;
-//            }
-//        }
-//}
-echo "<pre>";
-print_r ($allPeople);
-echo "</pre>";
-//echo generateName();
+//echo "Оставшиеся <br>";
+$result = array_intersect($cloneallPeople, $allPeople);
+//echo "<pre>";
+//print_r($result);
+//echo "</pre>";
+echo "Выигрышные места ".implode(", ", array_keys($result))."\n";
+echo "Остались пить чай с тортиком ".implode(", ", $result)."\n";
