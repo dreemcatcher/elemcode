@@ -23,6 +23,7 @@ foreach ($allWords as $someword) {
 }
 
 
+
 //echo count($word1)-1;
 $rndWord1 = mt_rand(0, count($word1) - 1);
 $rndWord2 = mt_rand(0, count($word2) - 1);
