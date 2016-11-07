@@ -1,5 +1,5 @@
 <?php
-
+header("Content-Type: text/plain; charset=utf-8");
 error_reporting(-1);
 
 $word1 = array('Чудесных', 'Суровых', 'Занятных', 'Внезапных');
@@ -12,26 +12,36 @@ $word4 = array('обретаю', 'понимаю', 'начертаю', 'закр
 $word5 = array('очертания', 'безысходность', 'начертанья', 'смысл жизни',
     'вирус смерти', 'радость мира');
 
-$rndWord1=mt_rand(0,3);
-$rndWord2=mt_rand(0,6);
-$rndWord3=mt_rand(0,8);
+$allWords = array($word1, $word2, $word3, "\n", $word1, $word2, $word3, "\n", $word4, $word5);
 
-$rndWord_1=mt_rand(0,3);
-$rndWord_2=mt_rand(0,6);
-$rndWord_3=mt_rand(0,8);
+foreach ($allWords as $someword) {
+    if (is_array($someword) == true) {
+        echo $someword[mt_rand(0, count($word1) - 1)] . ' ';
+    } else {
+        echo $someword;
+    }
+}
 
-$rndWord4=mt_rand(0,8);
-$rndWord5=mt_rand(0,5);
 
-echo $word1[$rndWord1].' '.$word2[$rndWord2].' '.$word3[$rndWord3].'<br>';
-echo $word1[$rndWord_1].' '.$word2[$rndWord_2].' '.$word3[$rndWord_3].'<br>';
-echo "Я ".$word4[$rndWord4].' '.$word5[$rndWord5];
+//echo count($word1)-1;
+$rndWord1 = mt_rand(0, count($word1) - 1);
+$rndWord2 = mt_rand(0, count($word2) - 1);
+$rndWord3 = mt_rand(0, count($word3) - 1);
 
+$rndWord_1 = mt_rand(0, count($word1) - 1);
+$rndWord_2 = mt_rand(0, count($word2) - 1);
+$rndWord_3 = mt_rand(0, count($word3) - 1);
+
+$rndWord4 = mt_rand(0, count($word4) - 1);
+$rndWord5 = mt_rand(0, count($word5) - 1);
+
+echo $word1[$rndWord1] . ' ' . $word2[$rndWord2] . ' ' . $word3[$rndWord3] . "\n";
+echo $word1[$rndWord_1] . ' ' . $word2[$rndWord_2] . ' ' . $word3[$rndWord_3] . "\n";
+echo "Я " . $word4[$rndWord4] . ' ' . $word5[$rndWord5];
 
 // вариант 2
-echo '<br>';
-echo '<br>';
+echo "\n\n";
 
-echo  $word1[array_rand($word1, 1)].' '. $word2[array_rand($word1, 1)].' '. $word3[array_rand($word1, 1)].'<br>';
-echo  $word1[array_rand($word1, 1)].' '. $word2[array_rand($word1, 1)].' '. $word3[array_rand($word1, 1)].'<br>';
-echo  'Я '. $word4[array_rand($word1, 1)].' '. $word5[array_rand($word1, 1)];
+echo $word1[array_rand($word1, 1)] . ' ' . $word2[array_rand($word1, 1)] . ' ' . $word3[array_rand($word1, 1)] . "\n";
+echo $word1[array_rand($word1, 1)] . ' ' . $word2[array_rand($word1, 1)] . ' ' . $word3[array_rand($word1, 1)] . "\n";
+echo 'Я ' . $word4[array_rand($word1, 1)] . ' ' . $word5[array_rand($word1, 1)];

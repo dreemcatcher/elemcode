@@ -1,13 +1,14 @@
 <?php
+header("Content-Type: text/plain; charset=utf-8");
 error_reporting(-1);
 
 // Имитация броска кубика
 echo "Человек кидает 2 кубика. \n";
-$manThrowOne    = mt_rand(1, 6);
+$manThrowOne = mt_rand(1, 6);
 $manThrowSecond = mt_rand(1, 6);
 $sumManThrow = $manThrowOne + $manThrowSecond;
 echo "AI кидает 2 кубика. \n";
-$AIThrowOne    = mt_rand(1, 6);
+$AIThrowOne = mt_rand(1, 6);
 $AIThrowSecond = mt_rand(1, 6);
 $sumAIThrow = $AIThrowOne + $AIThrowSecond;
 
@@ -24,6 +25,6 @@ if (($manThrowOne == $manThrowSecond) && ($AIThrowOne == $AIThrowSecond)) {
 //(если одинаковая — победила дружба)
 //op
 //elseif ($sumManThrow = $sumAIThrow) {
-else{
+else {
     echo "Победила дружба!";
 }

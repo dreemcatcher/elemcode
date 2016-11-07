@@ -1,5 +1,8 @@
 <?php
 error_reporting(-1);
+
+header("Content-Type: text/plain; charset=utf-8");
+
 function findEngSpells($text){
     $regexp='/([a-zA-z][а-яА-Я])|([а-яА-Я][a-zA-z])/u';
     //$matches=array();

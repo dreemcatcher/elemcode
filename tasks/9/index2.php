@@ -1,4 +1,5 @@
 <?php
+
 header("Content-Type: text/plain; charset=utf-8");
 /*
  * 5.5 Давай сделаем программу, отвечающую на любой вопрос. Для этого создадим массив с
@@ -14,9 +15,9 @@ $answers = array(
     6 => 'спроси анона'
 );
 
-$question = 'Выучу ли я PHP?';
+$question = 'Выучу ли я PHP? ';
 $random = array_rand($answers);
-$answer = $answers[$random[0]];
+$answer = $answers[$random];
 
-echo "Вопрос:{$question}\n";
-echo "Ответ: {$answer}\n";
+echo "Вопрос : {$question}\n";
+echo "Ответ : {$answer}\n";
