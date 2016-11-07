@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 header("Content-Type: text/plain; charset=utf-8");
 error_reporting(-1);
 
@@ -38,50 +37,11 @@ $code = array(
     'э' => 'ミ',
     'ю' => 'ョ',
     'я' => 'ヰ'
-=======
-error_reporting(-1);
-/* Коды для замены букв */
-$code = array(
-    'а'	=>	'ァ',
-    'б'	=>	'ィ',
-    'в'	=>	'ゥ',
-    'г'	=>	'ウ',
-    'д'	=>	'ェ',
-    'е'	=>	'ォ',
-    'ё'	=>	'カ',
-    'ж'	=>	'キ',
-    'з'	=>	'ク',
-    'и'	=>	'コ',
-    'й'	=>	'シ',
-    'к'	=>	'ス',
-    'л'	=>	'ズ',
-    'м'	=>	'セ',
-    'н'	=>	'ソ',
-    'о'	=>	'タ',
-    'п'	=>	'ダ',
-    'р'	=>	'チ',
-    'с'	=>	'ッ',
-    'т'	=>	'テ',
-    'у'	=>	'ト',
-    'ф'	=>	'ニ',
-    'х'	=>	'ネ',
-    'ц'	=>	'ノ',
-    'ч'	=>	'ハ',
-    'ш'	=>	'フ',
-    'щ'	=>	'ヘ',
-    'ь'	=>	'ベ',
-    'ы'	=>	'ペ',
-    'ъ'	=>	'ホ',
-    'э'	=>	'ミ',
-    'ю'	=>	'ョ',
-    'я'	=>	'ヰ'
->>>>>>> origin/master
 
 );
 
 $text = 'нас предали. явка провалена.';
 $cipher = strtr($text, $code);
-<<<<<<< HEAD
 
 echo "Оригинал: {$text}\nШифровка: {$cipher}\n";
 
@@ -89,10 +49,4 @@ $flipped = array_flip($code);
 
 $decode = strtr($text, $flipped);
 
-echo "<br>" . $decode;
-=======
-echo "Оригинал: {$text}\nШифровка: {$cipher}\n";
-$flipped = array_flip($code);
-$decode = strtr($text, $flipped);
-echo "<br>".$decode;
->>>>>>> origin/master
+echo "\n" . $decode;
