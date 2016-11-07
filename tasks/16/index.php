@@ -11,13 +11,16 @@
 header("Content-Type: text/plain; charset=utf-8");
 error_reporting(-1);
 mb_internal_encoding('utf-8');
-function numberCheck($number){
+function numberCheck($number)
+{
 
-   // $number=mb_strtolower($number);
+    // $number=mb_strtolower($number);
 
-   // $regexp = '/(([a-z])?|(а-я)?)[0-9]{3}(([a-z]{2})?|((а-я){2}))?/ui';
+    // $regexp = '/(([a-z])?|(а-я)?)[0-9]{3}(([a-z]{2})?|((а-я){2}))?/ui';
 
-    $regexp='/^([А|В|Е|К|М|Н|О|Р|С|Т|У|Х]|[A-Z]){1}[0-9]{3}({А|В|Е|К|М|Н|О|Р|С|Т|У|Х}|[A-Z]){2}/ui';
+    // $regexp = '/^([А|В|Е|К|М|Н|О|Р|С|Т|У|Х]|[A-Z]){1}[0-9]{3}({А|В|Е|К|М|Н|О|Р|С|Т|У|Х}|[A-Z]){2}/ui';
+    $regexp = '/^([АВЕКМНОРСТУХ]|[A-Z]){1}[0-9]{3}([АВЕКМНОРСТУХ]|[A-Z]){2}/ui';
+
     $match = [];
     if (preg_match($regexp, $number, $match)) {
         echo "+ Номер верный '{$match[0]}'\n";
@@ -25,15 +28,16 @@ function numberCheck($number){
         echo "- Номер {$number} неверный \n";
     }
 }
-$autonombers=['а876ке','в876ке','к876ке','о876ке','х876ке','м876ке','р876ке','а876ке','ф876ке','ы876ке',
-    'в876ке','е876нн','а456не','м567ее','в522ии','ы678нн','с879шш','ч567тт','в567лл','z111ad', 'щщщщщооооо123ооооо'
+
+$autonombers = ['а876ке', 'в876ке', 'к876ке', 'о876ке', 'х876ке', 'м876ке', 'р876ке', 'а876ке', 'ф876ке', 'ы876ке',
+    'в876ке', 'е876нн', 'а456не', 'м567ее', 'в522ии', 'ы678нн', 'с879шш', 'ч567тт', 'в567лл', 'z111ad', 'щщщщщооооо123ооооо'
 ];
 
-$arCount=count($autonombers);
-for ($i=0;$i<$arCount;$i++){
-    echo " ".numberCheck($autonombers[$i])."<br>";
-}
+$arCount = count($autonombers);
+//for ($i = 0; $i < $arCount; $i++) {
+//    echo " " . numberCheck($autonombers[$i]) . "\n";
+//}
 
 foreach ($autonombers as &$value) {
-    echo " ".numberCheck($value)."<br>";
+    echo " " . numberCheck($value) . "\n";
 }

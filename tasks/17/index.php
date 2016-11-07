@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: text/plain; charset=utf-8");
 function phoneNumberCheck($mobileNumber){
   //  $regexp = '/[+7]?([ \-\( ]?[\d][ \)\- ]?)([(]?\-?\\d\-?[)]?)(\\d\-*\)?)(\\d\-*)(\\d\-*)(\\d\-*)(\\d\-*)(\\d\-*)(\\d)/';
 
