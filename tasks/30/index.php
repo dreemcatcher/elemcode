@@ -38,6 +38,8 @@ echo "<pre>";
  print_r ($phrase);
 echo "</pre>";
 
+
+
 echo "<br>";
 for($y=0; $y<80; $y++){
     $screen[$y]=array_fill(0,80,'');
