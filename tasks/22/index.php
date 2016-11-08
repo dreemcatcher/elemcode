@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: text/plain; charset=utf-8");
 error_reporting(-1);
 
 header("Content-Type: text/plain; charset=utf-8");

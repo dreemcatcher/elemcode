@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: text/plain; charset=utf-8");
 //Дан текст, содержащий в себе email'ы (адреса почты вроде
 // you+me@some.domain-domain.com ). Напиши скрипт, выводящий
 // все email, встречающиеся в этом тексте

@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: text/plain; charset=utf-8");
 $input='243+6743-78*2=';
 $inputLength = mb_strlen($input);
 

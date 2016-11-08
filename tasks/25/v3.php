@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: text/plain; charset=utf-8");
 // Staring straight up into the sky ... oh my my
 error_reporting(-1);
 mb_internal_encoding('utf-8');

@@ -1,5 +1,5 @@
 <?php
-
+header("Content-Type: text/plain; charset=utf-8");
 function grammarCheck($text){
     //echo $text."<br>";
     // Проверим в лоб на отсутствие запятых перед а и но

@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: text/plain; charset=utf-8");
 /*
 На вход скрипта дан введенный пользователем номер телефона в виде 8-911-404-44-11 или +7(812)6786767 (в начале 8
  или +7, потом идут 10 цифр и, возможно, какие-то символы).
@@ -15,7 +16,7 @@
     */
 function phoneNumberCheck($mobileNumber){
     echo "Было так - ".$mobileNumber."\n";
-    $regexp='/(^ ?8|^\+ ?7)([-() ]*\d){10}$/';
+    $regexp='/^( ?8|^\+ ?7)([-() ]*\d){10}$/';
     $match = [];
     if (preg_match($regexp, $mobileNumber, $match)) {
         echo "+ Номер верный '{$match[0]}' \n";
