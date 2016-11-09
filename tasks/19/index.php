@@ -15,27 +15,27 @@ function autoChange($phrases)
 {
     echo "Было так - " . $phrases . "<br>";
     if (preg_match('/[a-z]/ui', $phrases)) {
-        echo "А тут у нас латинские символы!<br>";
+        echo "А тут у нас латинские символы! /n";
         $newPhrase = engToRus($phrases);
         //Тут такая ещё проверка, вдруг функция косячит!
         if (preg_match('/[a-z]/ui', $newPhrase)) {
-            echo "Фраза всё-равно английская!{$newPhrase}<br>";
+            echo "Фраза всё-равно английская!{$newPhrase}/n";
         } else {
             // Получили лузультат ... дурак
             // Меняем дурак, на хороший человек
             $pattern = '/(дурак)/ui';
             $replacement = 'хороший человек';
-            echo preg_replace($pattern, $replacement, $newPhrase) . "<br>";
+            echo preg_replace($pattern, $replacement, $newPhrase) . "/n";
         }
     } elseif (preg_match('/дурак/ui', str_replace(" ", "", $phrases))) {
         echo "Пробелами шалим?<br>";
         $pattern = '/(дурак)/ui';
         $replacement = ' хороший человек';
-        echo "а потом Стало так " . preg_replace($pattern, $replacement, str_replace(" ", "", $phrases)) . "<br>";
+        echo "а потом Стало так " . preg_replace($pattern, $replacement, str_replace(" ", "", $phrases)) . "/n";
     } else {
         $pattern = '/(дурак)/ui';
         $replacement = 'хороший человек';
-        echo "а потом Стало так " . preg_replace($pattern, $replacement, $phrases) . "<br>";
+        echo "а потом Стало так " . preg_replace($pattern, $replacement, $phrases) . "/n";
     }
 }
 
